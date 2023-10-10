@@ -1,0 +1,9 @@
+spring:
+  jpa.hibernate.ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/job_listings
+    username: job-listings
+    password: job-listings
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+job-listings-ui-url: http://localhost:4200
