@@ -7,3 +7,5 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 job-listings-ui-url: http://localhost:4200
+
+api-key: job-listings-api-key
