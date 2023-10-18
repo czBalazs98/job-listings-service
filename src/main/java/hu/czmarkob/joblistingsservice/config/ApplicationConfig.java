@@ -1,6 +1,5 @@
 package hu.czmarkob.joblistingsservice.config;
 
-import hu.czmarkob.joblistingsservice.auth.AuthenticationService;
 import hu.czmarkob.joblistingsservice.job.JobRepository;
 import hu.czmarkob.joblistingsservice.job.JobService;
 import hu.czmarkob.joblistingsservice.job.JobServiceImpl;
