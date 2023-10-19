@@ -40,15 +40,18 @@ public class JobServiceImpl implements JobService {
 	private Specification<Job> createSearchSpecification(List<String> keywords) {
 		return (root, query, criteriaBuilder) -> {
 			List<Predicate> predicates = new ArrayList<>();
-			keywords.forEach(keyword -> predicates.add(createPredicateForKeyword(criteriaBuilder, root, "%" + keyword + "%")));
+			keywords.forEach(keyword -> predicates.add(createPredicateForKeyword(criteriaBuilder, root, "%" + keyword.toLowerCase() + "%")));
 			return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 		};
 	}
 
 	private Predicate createPredicateForKeyword(CriteriaBuilder criteriaBuilder, Root<Job> root, String searchKeyword) {
-		return criteriaBuilder.or(criteriaBuilder.like(root.get(Job_.company), searchKeyword), criteriaBuilder.like(root.get(Job_.position), searchKeyword),
-				criteriaBuilder.like(root.get(Job_.location), searchKeyword), criteriaBuilder.like(root.join(Job_.tools), searchKeyword),
-				criteriaBuilder.like(root.get(Job_.jobType).as(String.class), searchKeyword.replaceAll("\\s", "")));
+		return criteriaBuilder.or(
+				criteriaBuilder.like(criteriaBuilder.lower(root.get(Job_.company)), searchKeyword),
+				criteriaBuilder.like(criteriaBuilder.lower(root.get(Job_.position)), searchKeyword),
+				criteriaBuilder.like(criteriaBuilder.lower(root.get(Job_.location)), searchKeyword),
+				criteriaBuilder.like(criteriaBuilder.lower(root.join(Job_.tools)), searchKeyword),
+				criteriaBuilder.like(criteriaBuilder.lower(root.get(Job_.jobType).as(String.class)), searchKeyword.replaceAll("\\s", "")));
 	}
 
 	@Override
